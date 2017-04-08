@@ -15,7 +15,7 @@ public class MyFirstProgram {
     Point p2 = new Point(15, 10);
 
     System.out.println("Расстояние между точкой А с кординатами (" + p1.x
-            + "," + p1.y + ") и точкой B с кордbнатами" + "(" + p2.x + ","
+            + "," + p1.y + ") и точкой B с кординатами" + "(" + p2.x + ","
             + p2.y + ")" + " = " + p1.distance(p2));
 
     Circle c = new Circle(5);
