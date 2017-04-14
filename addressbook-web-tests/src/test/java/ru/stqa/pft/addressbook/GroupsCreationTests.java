@@ -29,6 +29,7 @@ public class GroupsCreationTests {
     wd.findElement(By.name("pass")).click();
     wd.findElement(By.name("pass")).clear();
     wd.findElement(By.name("pass")).sendKeys("secret");
+    wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
   }
 
   @Test
