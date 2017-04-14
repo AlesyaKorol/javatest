@@ -1,3 +1,5 @@
+package ru.stqa.pft.addressbook;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -30,7 +32,7 @@ public class ContactCreationTest {
   }
 
   @Test
-  public void ContactCreationTest() {
+  public void testContactCreation() {
     initContactCreation();
     fillContactForm(new ContactData("Olga", "Ivanova", "80295789098", "anna@gmail.com"));
     submitContactCreation();
