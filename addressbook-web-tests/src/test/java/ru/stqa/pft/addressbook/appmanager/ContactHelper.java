@@ -17,20 +17,21 @@ public class ContactHelper extends HelperBase {
   }
 
   public void submitContactCreation() {
-    click(By.xpath("//div[@id='content']/form/input[21]"));
+    click(By.name("submit"));
   }
 
   public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
-    type(By.name("mobile"), contactData.getMobilephone());
-    type(By.name("email"), contactData.getEmail1());
 
      if (creation) {
        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
      } else {
        Assert.assertFalse(isElementPresent(By.name("new_group")));
      }
+    type(By.name("mobile"), contactData.getMobilephone());
+    type(By.name("email"), contactData.getEmail1());
+
    }
 
 

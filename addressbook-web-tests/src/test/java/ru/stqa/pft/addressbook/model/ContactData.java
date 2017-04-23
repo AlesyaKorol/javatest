@@ -7,7 +7,7 @@ public class ContactData {
   private final String mobilephone;
   private final String email1;
 
-  public ContactData(String firstname, String lastname, String group, String mobilephone, String email1) {
+  public ContactData(String firstname, String lastname, String mobilephone, String email1, String group) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.group = group;
