@@ -24,23 +24,23 @@ public class ContactHelper extends HelperBase {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
 
-     if (creation) {
-       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-     } else {
-       Assert.assertFalse(isElementPresent(By.name("new_group")));
-     }
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
     type(By.name("mobile"), contactData.getMobilephone());
     type(By.name("email"), contactData.getEmail1());
 
-   }
+  }
 
 
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
 
-  public void selectContact() {
-    click(By.name("selected[]"));
+  public void selectContact(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteSelectedContact() {

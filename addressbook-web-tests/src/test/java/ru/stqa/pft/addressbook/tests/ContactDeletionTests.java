@@ -20,7 +20,7 @@ public class ContactDeletionTests extends TestBase {
               "80295789098", "anna@gmail.com", "group1"), true);
       }
 
-    app.getContactHelper().selectContact();
+    app.getContactHelper().selectContact(before - 1);
     app.getContactHelper().deleteSelectedContact();
     app.getContactHelper().closeAlertWindow();
     app.getNavigationHelper().goToHomePage();
