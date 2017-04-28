@@ -1,12 +1,12 @@
 package ru.stqa.pft.addressbook.model;
 
 public class GroupDate {
-  private final String id;
+  private int id;
   private final String groupname;
   private final String header;
   private final String footer;
 
-  public GroupDate(String id, String groupname, String header, String footer) {
+  public GroupDate(int id, String groupname, String header, String footer) {
     this.id = id;
     this.groupname = groupname;
     this.header = header;
@@ -14,14 +14,14 @@ public class GroupDate {
   }
 
 
-  public GroupDate( String groupname, String header, String footer) {
+  public GroupDate(String groupname, String header, String footer) {
     this.groupname = groupname;
     this.header = header;
     this.footer = footer;
-    this.id = null;
+    this.id = 0;
   }
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
@@ -37,23 +37,8 @@ public class GroupDate {
     return footer;
   }
 
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    GroupDate groupDate = (GroupDate) o;
-
-    if (id != null ? !id.equals(groupDate.id) : groupDate.id != null) return false;
-    return groupname != null ? groupname.equals(groupDate.groupname) : groupDate.groupname == null;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
-    result = 31 * result + (groupname != null ? groupname.hashCode() : 0);
-    return result;
+  public void setId(int id) {
+    this.id = id;
   }
 
   @Override
@@ -64,6 +49,22 @@ public class GroupDate {
             '}';
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
+    GroupDate groupDate = (GroupDate) o;
+
+    if (id != groupDate.id) return false;
+    return groupname != null ? groupname.equals(groupDate.groupname) : groupDate.groupname == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (groupname != null ? groupname.hashCode() : 0);
+    return result;
+  }
 
 }
