@@ -13,12 +13,11 @@ public class GroupDate {
     this.footer = footer;
   }
 
-
   public GroupDate(String groupname, String header, String footer) {
     this.groupname = groupname;
     this.header = header;
     this.footer = footer;
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
   }
 
   public int getId() {
@@ -49,6 +48,7 @@ public class GroupDate {
             '}';
   }
 
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -56,15 +56,12 @@ public class GroupDate {
 
     GroupDate groupDate = (GroupDate) o;
 
-    if (id != groupDate.id) return false;
     return groupname != null ? groupname.equals(groupDate.groupname) : groupDate.groupname == null;
   }
 
   @Override
   public int hashCode() {
-    int result = id;
-    result = 31 * result + (groupname != null ? groupname.hashCode() : 0);
-    return result;
+    return groupname != null ? groupname.hashCode() : 0;
   }
 
 }
