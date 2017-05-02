@@ -14,7 +14,6 @@ import java.util.List;
 public class GroupsModificationTests extends TestBase {
 
   @Test
-
   public void testGroupsModification() {
     app.getNavigationHelper().gotoGroupPage();
     if (! app.getGroupHelper().isThereAGroup()) {

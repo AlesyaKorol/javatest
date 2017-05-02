@@ -25,7 +25,6 @@ public class ApplicationManager {
     this.browser = browser;
   }
 
-
   public void init() {
     if (browser.equals(BrowserType.FIREFOX)) {
       wd = new FirefoxDriver();
@@ -44,11 +43,9 @@ public class ApplicationManager {
     contactHelper = new ContactHelper(wd);
   }
 
-
   public void stop() {
     wd.quit();
   }
-
 
   public GroupHelper getGroupHelper() {
     return groupHelper;
