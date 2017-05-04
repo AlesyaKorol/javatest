@@ -46,6 +46,10 @@ public class GroupHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void selectGroupById(int id) {
+    wd.findElement(By.cssSelector("input[value='"+ id + "']")).click();
+  }
+
   public void initGroupModification() {
     click(By.name("edit"));
   }
@@ -75,6 +79,12 @@ public class GroupHelper extends HelperBase {
     returToGroupPage();
   }
 
+  public void delete(GroupDate group) {
+    selectGroupById(group.getId());
+    deleteSelectedGroups();
+    returToGroupPage();
+  }
+
   public boolean isThereAGroup() {
     return isElementPresent(By.name("selected[]"));
   }
@@ -86,22 +96,24 @@ public class GroupHelper extends HelperBase {
   public List<GroupDate> list() {
     List<GroupDate> groups = new ArrayList<GroupDate>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
-    for (WebElement element: elements ){
+    for (WebElement element : elements) {
       String groupname = element.getText();
-      int id =  Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       groups.add(new GroupDate().withId(id).withGroupname(groupname));
     }
     return groups;
   }
 
-  public Set<GroupDate> all () {
+  public Set<GroupDate> all() {
     Set<GroupDate> groups = new HashSet<GroupDate>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
-    for (WebElement element: elements ){
+    for (WebElement element : elements) {
       String groupname = element.getText();
-      int id =  Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       groups.add(new GroupDate().withId(id).withGroupname(groupname));
     }
     return groups;
   }
+
+
 }
