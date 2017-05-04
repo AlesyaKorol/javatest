@@ -65,8 +65,8 @@ public class GroupHelper extends HelperBase {
     returToGroupPage();
   }
 
-  public void modify(int index, GroupDate group) {
-    selectGroup(index);
+  public void modify(GroupDate group) {
+    selectGroupById(group.getId());
     initGroupModification();
     fillGroupForm(group);
     submitGroupModificatio();
