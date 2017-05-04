@@ -43,26 +43,28 @@ public class GroupDate {
   }
 
   @Override
-  public String toString() {
-    return "GroupDate{" +
-            "id='" + id + '\'' +
-            ", groupname='" + groupname + '\'' +
-            '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
     GroupDate groupDate = (GroupDate) o;
 
+    if (id != groupDate.id) return false;
     return groupname != null ? groupname.equals(groupDate.groupname) : groupDate.groupname == null;
   }
 
   @Override
   public int hashCode() {
-    return groupname != null ? groupname.hashCode() : 0;
+    int result = id;
+    result = 31 * result + (groupname != null ? groupname.hashCode() : 0);
+    return result;
+  }
+  @Override
+  public String toString() {
+    return "GroupDate{" +
+            "id='" + id + '\'' +
+            ", groupname='" + groupname + '\'' +
+            '}';
   }
 
 }

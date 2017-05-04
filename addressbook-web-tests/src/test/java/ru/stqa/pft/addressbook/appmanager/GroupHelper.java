@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupDate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Alesia on 15.04.17.
@@ -83,6 +85,17 @@ public class GroupHelper extends HelperBase {
 
   public List<GroupDate> list() {
     List<GroupDate> groups = new ArrayList<GroupDate>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+    for (WebElement element: elements ){
+      String groupname = element.getText();
+      int id =  Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      groups.add(new GroupDate().withId(id).withGroupname(groupname));
+    }
+    return groups;
+  }
+
+  public Set<GroupDate> all () {
+    Set<GroupDate> groups = new HashSet<GroupDate>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element: elements ){
       String groupname = element.getText();
