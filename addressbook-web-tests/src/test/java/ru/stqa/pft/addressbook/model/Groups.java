@@ -25,13 +25,13 @@ public class Groups extends ForwardingSet<GroupDate> {
     return delegate;
   }
 
-  public Groups withAdded (GroupDate group){
+  public Groups withAdded(GroupDate group) {
     Groups groups = new Groups(this);
     groups.add(group);
     return groups;
   }
 
-  public Groups without (GroupDate group){
+  public Groups without(GroupDate group) {
     Groups groups = new Groups(this);
     groups.remove(group);
     return groups;

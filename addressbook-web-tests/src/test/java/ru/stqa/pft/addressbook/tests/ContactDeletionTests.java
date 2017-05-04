@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -16,9 +15,9 @@ import static org.testng.Assert.assertEquals;
 public class ContactDeletionTests extends TestBase {
 
   @BeforeMethod
-  public void ensurePreconditions(){
+  public void ensurePreconditions() {
     app.goTo().homePage();
-    if (app.contact().all().size() == 0){
+    if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData().
               withFirstname("Olga02").withLastname("Test").withMobilephone("80295789098").
               withEmail1("anna@gmail.com").withGroup("[none]"), true);
@@ -34,7 +33,7 @@ public class ContactDeletionTests extends TestBase {
     Contacts after = app.contact().all();
     assertEquals(after.size(), before.size() - 1);
     assertThat(after, equalTo(before.without(deletedContact)));
-    }
+  }
 
 
 }

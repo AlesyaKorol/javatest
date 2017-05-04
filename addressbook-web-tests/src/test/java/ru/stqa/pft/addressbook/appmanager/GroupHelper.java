@@ -7,9 +7,7 @@ import ru.stqa.pft.addressbook.model.GroupDate;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Alesia on 15.04.17.
@@ -48,7 +46,7 @@ public class GroupHelper extends HelperBase {
   }
 
   public void selectGroupById(int id) {
-    wd.findElement(By.cssSelector("input[value='"+ id + "']")).click();
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void initGroupModification() {
