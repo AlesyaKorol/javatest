@@ -1,24 +1,10 @@
 package ru.stqa.pft.addressbook.model;
 
 public class GroupDate {
-  private int id;
-  private final String groupname;
-  private final String header;
-  private final String footer;
-
-  public GroupDate(int id, String groupname, String header, String footer) {
-    this.id = id;
-    this.groupname = groupname;
-    this.header = header;
-    this.footer = footer;
-  }
-
-  public GroupDate(String groupname, String header, String footer) {
-    this.groupname = groupname;
-    this.header = header;
-    this.footer = footer;
-    this.id = Integer.MAX_VALUE;
-  }
+  private int id = Integer.MAX_VALUE;
+  private String groupname;
+  private  String header;
+  private  String footer;
 
   public int getId() {
     return id;
@@ -36,8 +22,24 @@ public class GroupDate {
     return footer;
   }
 
-  public void setId(int id) {
+  public GroupDate withId(int id) {
     this.id = id;
+    return this;
+  }
+
+  public GroupDate withGroupname(String groupname) {
+    this.groupname = groupname;
+    return this;
+  }
+
+  public GroupDate withHeader(String header) {
+    this.header = header;
+    return this;
+  }
+
+  public GroupDate withFooter(String footer) {
+    this.footer = footer;
+    return this;
   }
 
   @Override
