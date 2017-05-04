@@ -12,9 +12,12 @@ public class ContactCreationTest extends TestBase {
   @Test
   public void testContactCreation() {
     app.goTo().homePage();
+    List<ContactData> before = app.contact().list();
     app.contact().initContactCreation();
     ContactData contact = new ContactData("Olga02", "Smirnova",
             "80295789098", "anna@gmail.com", "[none]");
+    app.contact().create(contact, true);
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());

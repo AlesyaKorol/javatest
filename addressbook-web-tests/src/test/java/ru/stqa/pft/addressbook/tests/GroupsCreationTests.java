@@ -12,7 +12,10 @@ public class GroupsCreationTests extends TestBase {
   @Test
   public void testGroupsCreation() {
     app.goTo().groupPage();
+    List<GroupDate> before = app.group().list();
     GroupDate group = new GroupDate("group5", "Group1-h", "Group1-f");
+    app.group().create(group);
+    List<GroupDate> after = app.group().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     group.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
