@@ -33,7 +33,12 @@ public class ContactMainpageTest extends TestBase {
     app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoEditForm = app.contact().infoContactEditForm(contact);
-
+    System.out.println(contact.getAddress());
+    System.out.println(contactInfoEditForm.getAddress());
+    System.out.println(contact.getAllPhones());
+    System.out.println(mergedPhones(contactInfoEditForm));
+    System.out.println(contact.getAllEmails());
+    System.out.println(mergedEmails(contactInfoEditForm));
 
     assertThat(contact.getAddress(), equalTo(contactInfoEditForm.getAddress()));
     assertThat(contact.getAllPhones(), equalTo(mergedPhones(contactInfoEditForm)));
@@ -44,7 +49,7 @@ public class ContactMainpageTest extends TestBase {
   private String mergedPhones(ContactData contact) {
     return Arrays.asList(contact.getHomephone(), contact.getMobilephone(), contact.getWorkphone())
             .stream().filter((s) -> !s.equals(""))
-            .map(ContactPhoneTest::cleaned)
+            .map(ContactMainpageTest::cleaned)
             .collect(Collectors.joining("\n"));
   }
 
