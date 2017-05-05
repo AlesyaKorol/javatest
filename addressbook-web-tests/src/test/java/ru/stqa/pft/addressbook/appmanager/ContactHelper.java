@@ -33,6 +33,7 @@ public class ContactHelper extends HelperBase {
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
+    type(By.name("address"),contactData.getAddress());
     type(By.name("home"), contactData.getHomephone());
     type(By.name("mobile"), contactData.getMobilephone());
     type(By.name("work"), contactData.getWorkphone());
@@ -145,6 +146,7 @@ public class ContactHelper extends HelperBase {
     initContactModificationById(contact.getId());
     String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getText();
     String homephome = wd.findElement(By.name("home")).getAttribute("value");
     String mobilephome = wd.findElement(By.name("mobile")).getAttribute("value");
     String workphome = wd.findElement(By.name("work")).getAttribute("value");
@@ -152,7 +154,9 @@ public class ContactHelper extends HelperBase {
     String email2 = wd.findElement(By.name("email2")).getAttribute("value");
     String email3 = wd.findElement(By.name("email3")).getAttribute("value");
     wd.navigate().back();
-    return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withHomephone(homephome)
+    return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+            .withAddress(address)
+            .withHomephone(homephome)
             .withMobilephone(mobilephome).withWorkphone(workphome)
             .withEmai1(email).withEmail2(email2).withEmail3(email3);
   }
@@ -169,10 +173,12 @@ public class ContactHelper extends HelperBase {
       String lastname = element.findElement(By.xpath("td[2]")).getText();
       String allEmails = element.findElement(By.xpath("td[5]")).getText();
       String allPhones = element.findElement(By.xpath("td[6]")).getText();
+      String address = element.findElement(By.xpath("td[4]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       System.out.println("id " + id + " fn: " + firstname + " ln: " + lastname + " qty " + elements.size());
-      contactCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname).
-              withAllPhones(allPhones).withAllEmails(allEmails));
+      contactCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
+              .withAddress(address)
+              .withAllPhones(allPhones).withAllEmails(allEmails));
     }
     return new Contacts(contactCache);
   }

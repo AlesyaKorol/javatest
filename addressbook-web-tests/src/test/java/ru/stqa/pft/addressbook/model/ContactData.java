@@ -13,6 +13,7 @@ public class ContactData {
   private String allEmails;
   private String group;
   private String allPhones;
+  private String address;
 
 
   public String getFirstname() {
@@ -61,6 +62,10 @@ public class ContactData {
 
   public int getId() {
     return id;
+  }
+
+  public String getAddress() {
+    return address;
   }
 
   public ContactData withId(int id) {
@@ -120,6 +125,11 @@ public class ContactData {
 
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
+    return this;
+  }
+
+  public ContactData withAddress(String address) {
+    this.address = address;
     return this;
   }
 
