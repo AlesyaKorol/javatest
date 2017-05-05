@@ -60,6 +60,10 @@ public class ContactHelper extends HelperBase {
      //wd.findElement(By.xpath(String.format("a[href='edit.php?id=8s']",id))).click();
   }
 
+  private void viewContactDetailsById (int id){
+    wd.findElement(By.xpath("//a[contains(@href,'view.php?id=" + id + "')]")).click();
+    }
+
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
@@ -160,6 +164,27 @@ public class ContactHelper extends HelperBase {
             .withMobilephone(mobilephome).withWorkphone(workphome)
             .withEmai1(email).withEmail2(email2).withEmail3(email3);
   }
+
+  public ContactData infoContactDetails(ContactData contact){
+    viewContactDetailsById(contact.getId());
+    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getText();
+    String homephome = wd.findElement(By.name("home")).getAttribute("value");
+    String mobilephome = wd.findElement(By.name("mobile")).getAttribute("value");
+    String workphome = wd.findElement(By.name("work")).getAttribute("value");
+    String email = wd.findElement(By.name("email")).getAttribute("value");
+    String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+    String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+    wd.navigate().back();
+    return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+            .withAddress(address)
+            .withHomephone(homephome)
+            .withMobilephone(mobilephome).withWorkphone(workphome)
+            .withEmai1(email).withEmail2(email2).withEmail3(email3);
+  }
+
+
 
 
   public Contacts all() {
