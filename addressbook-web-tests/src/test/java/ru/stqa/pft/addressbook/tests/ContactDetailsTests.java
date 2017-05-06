@@ -26,22 +26,22 @@ public class ContactDetailsTests extends TestBase {
     }
   }
 
-  @Test
-  public void testContactDetailsSplit() {
-    ContactData contact = app.contact().all().iterator().next();
-    ContactData contactView = app.contact().infoContactDetailsSplit(contact);
-    ContactData contactInfoEditForm = app.contact().infoContactEditForm(contact);
-
-    assertThat(contactView.getFirstname(), equalTo(contactInfoEditForm.getFirstname()));
-    assertThat(contactView.getLastname(), equalTo(contactInfoEditForm.getLastname()));
-    assertThat(contactView.getAddress(), equalTo(contactInfoEditForm.getAddress()));
-    assertThat(cleaned(contactView.getHomephone()), equalTo(cleaned(contactInfoEditForm.getHomephone())));
-    assertThat(cleaned(contactView.getMobilephone()), equalTo(cleaned(contactInfoEditForm.getMobilephone())));
-    assertThat(cleaned(contactView.getWorkphone()), equalTo(cleaned(contactInfoEditForm.getWorkphone())));
-    assertThat(contactView.getEmail(), equalTo(contactInfoEditForm.getEmail()));
-    assertThat(contactView.getEmail2(), equalTo(contactInfoEditForm.getEmail2()));
-    assertThat(contactView.getEmail3(), equalTo(contactInfoEditForm.getEmail3()));
-  }
+//  @Test
+//  public void testContactDetailsSplit() {
+//    ContactData contact = app.contact().all().iterator().next();
+//    ContactData contactView = app.contact().infoContactDetailsSplit(contact);
+//    ContactData contactInfoEditForm = app.contact().infoContactEditForm(contact);
+//
+//    assertThat(contactView.getFirstname(), equalTo(contactInfoEditForm.getFirstname()));
+//    assertThat(contactView.getLastname(), equalTo(contactInfoEditForm.getLastname()));
+//    assertThat(contactView.getAddress(), equalTo(contactInfoEditForm.getAddress()));
+//    assertThat(cleaned(contactView.getHomephone()), equalTo(cleaned(contactInfoEditForm.getHomephone())));
+//    assertThat(cleaned(contactView.getMobilephone()), equalTo(cleaned(contactInfoEditForm.getMobilephone())));
+//    assertThat(cleaned(contactView.getWorkphone()), equalTo(cleaned(contactInfoEditForm.getWorkphone())));
+//    assertThat(contactView.getEmail(), equalTo(contactInfoEditForm.getEmail()));
+//    assertThat(contactView.getEmail2(), equalTo(contactInfoEditForm.getEmail2()));
+//    assertThat(contactView.getEmail3(), equalTo(contactInfoEditForm.getEmail3()));
+//  }
 
   public static String cleaned(String phone) {
       return phone.replaceAll("\\s", "")
