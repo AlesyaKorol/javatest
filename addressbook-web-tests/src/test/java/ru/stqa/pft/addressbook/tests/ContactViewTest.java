@@ -9,9 +9,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Created by Alesia on 15.04.17.
+ * Created by Alesya on 05/06/2017.
  */
-public class ContactModificationTests extends TestBase {
+public class ContactViewTest extends TestBase{
+
 
   @BeforeMethod
   public void ensurePreconditions() {
@@ -24,17 +25,14 @@ public class ContactModificationTests extends TestBase {
   }
 
   @Test
-  public void testContactModification() {
-    Contacts before = app.contact().all();
-    ContactData modifiedContact = before.iterator().next();
-    ContactData contact = new ContactData()
-            .withId(modifiedContact.getId()).withFirstname("Inna").withLastname("Smirnova").withMobilephone("1231231").
-                    withEmai1("test@gmail.com");
-    app.contact().modify(contact);
-    assertThat(app.contact().count(), equalTo(before.size()));
-    Contacts after = app.contact().all();
-    assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+  public void testContactView() {
+   Contacts before = app.contact().all();
+   ContactData viewedContact = before.iterator().next();
+   app.contact().view(viewedContact);
+   app.goTo().homePage();
+
+   assertThat(app.contact().count(), equalTo(before.size()));
+   Contacts after = app.contact().all();
+   assertThat(after, equalTo(before));
   }
-
-
 }
