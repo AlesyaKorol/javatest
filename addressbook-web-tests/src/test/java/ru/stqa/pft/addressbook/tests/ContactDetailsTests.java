@@ -6,6 +6,9 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -18,8 +21,9 @@ public class ContactDetailsTests extends TestBase {
     app.goTo().homePage();
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData().
-              withFirstname("Olga02").withLastname("Test").withHomephone("111").withMobilephone("222").
-              withWorkphone("333").withEmai1("anna@gmail.com").withGroup("[none]"), true);
+              withFirstname("Olga02").withLastname("Test").withHomephone("111").withMobilephone("222").withWorkphone("333")
+              .withEmai1("anna@gmail.com").withEmail2("test").withEmail3("test2")
+              .withGroup("[none]"), true);
     }
   }
 
@@ -29,14 +33,19 @@ public class ContactDetailsTests extends TestBase {
     ContactData contactView = app.contact().infoContactDetails(contact);
     ContactData contactInfoEditForm = app.contact().infoContactEditForm(contact);
 
-    System.out.println("details " + contactView.getAddress());
-    System.out.println("details ph " + contactView.getHomephone());
-    System.out.println("edit form  " + contactInfoEditForm.getAddress());
-    System.out.println("edit form ph " + contactInfoEditForm.getHomephone());
-
+    assertThat(contactView.getFirstname(), equalTo(contactInfoEditForm.getFirstname()));
+    assertThat(contactView.getLastname(), equalTo(contactInfoEditForm.getLastname()));
     assertThat(contactView.getAddress(), equalTo(contactInfoEditForm.getAddress()));
-    // assertThat(contactView.getHomephone(), equalTo(contactInfoEditForm.getHomephone()));
-
-
+    assertThat(cleaned(contactView.getHomephone()), equalTo(cleaned(contactInfoEditForm.getHomephone())));
+    assertThat(cleaned(contactView.getMobilephone()), equalTo(cleaned(contactInfoEditForm.getMobilephone())));
+    assertThat(cleaned(contactView.getWorkphone()), equalTo(cleaned(contactInfoEditForm.getWorkphone())));
+    assertThat(contactView.getEmail(), equalTo(contactInfoEditForm.getEmail()));
+    assertThat(contactView.getEmail2(), equalTo(contactInfoEditForm.getEmail2()));
+    assertThat(contactView.getEmail3(), equalTo(contactInfoEditForm.getEmail3()));
   }
+
+  public String cleaned(String phone) {
+    return phone.replaceAll("\\s", "").replaceAll("[-()HMW:]", "");
+  }
+
 }

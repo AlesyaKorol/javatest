@@ -33,7 +33,7 @@ public class ContactHelper extends HelperBase {
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
-    type(By.name("address"),contactData.getAddress());
+    type(By.name("address"), contactData.getAddress());
     type(By.name("home"), contactData.getHomephone());
     type(By.name("mobile"), contactData.getMobilephone());
     type(By.name("work"), contactData.getWorkphone());
@@ -57,16 +57,16 @@ public class ContactHelper extends HelperBase {
 
   private void initContactModificationById(int id) {
     wd.findElement(By.xpath("//a[contains(@href,'edit.php?id=" + id + "')]")).click();
-     //wd.findElement(By.xpath(String.format("a[href='edit.php?id=8s']",id))).click();
+    //wd.findElement(By.xpath(String.format("a[href='edit.php?id=8s']",id))).click();
   }
 
-  public void initContactView(){
+  public void initContactView() {
     click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img"));
   }
 
-  private void initViewContactDetailsById(int id){
+  private void initViewContactDetailsById(int id) {
     wd.findElement(By.xpath("//a[contains(@href,'view.php?id=" + id + "')]")).click();
-    }
+  }
 
   public void initContactCreation() {
     click(By.linkText("add new"));
@@ -112,9 +112,9 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
-  public void view (ContactData contact) {
-     initViewContactDetailsById(contact.getId());
-     }
+  public void view(ContactData contact) {
+    initViewContactDetailsById(contact.getId());
+  }
 
 
   public void delete(int index) {
@@ -153,7 +153,7 @@ public class ContactHelper extends HelperBase {
 
   private Contacts contactCache = null;
 
-  public ContactData infoContactEditForm(ContactData contact){
+  public ContactData infoContactEditForm(ContactData contact) {
     initContactModificationById(contact.getId());
     String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
@@ -172,19 +172,19 @@ public class ContactHelper extends HelperBase {
             .withEmai1(email).withEmail2(email2).withEmail3(email3);
   }
 
-  public ContactData infoContactDetails(ContactData contact){
+  public ContactData infoContactDetails(ContactData contact) {
     initViewContactDetailsById(contact.getId());
-    String [] firstname = wd.findElement(By.xpath("//div[@id='content']")).getText().split("\n");
-    String [] address = wd.findElement(By.xpath("//div[@id='content']")).getText().split("\n");
-    String [] homephone = wd.findElement(By.xpath("//div[@id='content']")).getText().split("\n");
-
+    String[] details = wd.findElement(By.xpath("//div[@id='content']")).getText().split("\n");
+    String[] names = details[0].split("\\s");
     wd.navigate().back();
-    return new ContactData().withId(contact.getId()).withFirstname(firstname[0]).withAddress(address[1])
-            .withHomephone(homephone[2]);
-            }
+    return new ContactData().withId(contact.getId()).withFirstname(names[0]).withLastname(names[1])
+            .withAddress(details[1])
+            .withHomephone(details[3]).withMobilephone(details[4]).withWorkphone(details[5])
+            .withEmai1(details[7]).withEmail2(details[8]).withEmail3(details[9]);
+  }
 
   public Contacts all() {
-    if (contactCache != null){
+    if (contactCache != null) {
       return new Contacts(contactCache);
     }
     contactCache = new Contacts();
@@ -203,7 +203,6 @@ public class ContactHelper extends HelperBase {
     }
     return new Contacts(contactCache);
   }
-
 
 
 }
