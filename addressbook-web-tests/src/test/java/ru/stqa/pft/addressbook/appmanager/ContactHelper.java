@@ -174,18 +174,13 @@ public class ContactHelper extends HelperBase {
 
   public ContactData infoContactDetails(ContactData contact){
     initViewContactDetailsById(contact.getId());
+    String [] firstname = wd.findElement(By.xpath("//div[@id='content']")).getText().split("\n");
+    String [] address = wd.findElement(By.xpath("//div[@id='content']")).getText().split("\n");
+    String [] homephone = wd.findElement(By.xpath("//div[@id='content']")).getText().split("\n");
 
-    //String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
-   // String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
-    String address = wd.findElement(By.xpath("//div[@id='content']")).getText();
-   // String homephome = wd.findElement(By.name("home")).getAttribute("value");
-  //  String mobilephome = wd.findElement(By.name("mobile")).getAttribute("value");
-  //  String workphome = wd.findElement(By.name("work")).getAttribute("value");
-   // String email = wd.findElement(By.name("email")).getAttribute("value");
-   // String email2 = wd.findElement(By.name("email2")).getAttribute("value");
-   // String email3 = wd.findElement(By.name("email3")).getAttribute("value");
     wd.navigate().back();
-    return new ContactData().withId(contact.getId()).withAddress(address);
+    return new ContactData().withId(contact.getId()).withFirstname(firstname[0]).withAddress(address[1])
+            .withHomephone(homephone[2]);
             }
 
   public Contacts all() {

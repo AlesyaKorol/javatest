@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Created by Alesya on 05/06/2017.
  */
-public class ContactViewTest extends TestBase{
+public class ContactViewTest extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
@@ -26,13 +26,14 @@ public class ContactViewTest extends TestBase{
 
   @Test
   public void testContactView() {
-   Contacts before = app.contact().all();
-   ContactData viewedContact = before.iterator().next();
-   app.contact().view(viewedContact);
-   app.goTo().homePage();
+    Contacts before = app.contact().all();
+    ContactData viewedContact = before.iterator().next();
+    app.contact().view(viewedContact);
+    app.goTo().homePage();
 
-   assertThat(app.contact().count(), equalTo(before.size()));
-   Contacts after = app.contact().all();
-   assertThat(after, equalTo(before));
+    assertThat(app.contact().count(), equalTo(before.size()));
+    Contacts after = app.contact().all();
+    assertThat(after, equalTo(before));
   }
+
 }
