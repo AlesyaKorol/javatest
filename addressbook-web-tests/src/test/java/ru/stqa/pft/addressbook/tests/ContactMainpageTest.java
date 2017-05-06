@@ -30,7 +30,6 @@ public class ContactMainpageTest extends TestBase {
 
   @Test
   public void testContactMainpage() {
-    app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoEditForm = app.contact().infoContactEditForm(contact);
     System.out.println(contact.getAddress());

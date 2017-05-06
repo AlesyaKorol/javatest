@@ -13,7 +13,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class ContactViewTest extends TestBase{
 
-
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().homePage();
@@ -23,6 +22,7 @@ public class ContactViewTest extends TestBase{
               .withEmai1("anna@gmail.com").withGroup("[none]"), true);
     }
   }
+
 
   @Test
   public void testContactView() {
