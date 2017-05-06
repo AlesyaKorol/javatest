@@ -4,7 +4,6 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -28,9 +27,9 @@ public class ContactDetailsTests extends TestBase {
   }
 
   @Test
-  public void testContactDetails() {
+  public void testContactDetailsSplit() {
     ContactData contact = app.contact().all().iterator().next();
-    ContactData contactView = app.contact().infoContactDetails(contact);
+    ContactData contactView = app.contact().infoContactDetailsSplit(contact);
     ContactData contactInfoEditForm = app.contact().infoContactEditForm(contact);
 
     assertThat(contactView.getFirstname(), equalTo(contactInfoEditForm.getFirstname()));
@@ -44,8 +43,29 @@ public class ContactDetailsTests extends TestBase {
     assertThat(contactView.getEmail3(), equalTo(contactInfoEditForm.getEmail3()));
   }
 
-  public String cleaned(String phone) {
-    return phone.replaceAll("\\s", "").replaceAll("[-()HMW:]", "");
+  public static String cleaned(String phone) {
+      return phone.replaceAll("\\s", "")
+            .replaceAll("(M:)", "").replaceAll("(H:)", "").replaceAll("(W:)", "");
+  }
+
+  private String mergedDetails(ContactData contact) {
+    return Arrays.asList(contact.getFirstname(), contact.getLastname(), contact.getAddress(), contact.getHomephone(), contact.getMobilephone(), contact.getWorkphone(), contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+            .stream().filter((s) -> !s.equals(""))
+            .map(ContactDetailsTests::cleaned)
+            .collect(Collectors.joining(""));
+  }
+
+  @Test
+  public void testContactDetailsMerge() {
+    ContactData contact = app.contact().all().iterator().next();
+    ContactData contactView = app.contact().infoContactDetailsMerge(contact);
+    ContactData contactInfoEditForm = app.contact().infoContactEditForm(contact);
+
+    System.out.println(cleaned(contactView.getFirstname()));
+    System.out.println(mergedDetails(contactInfoEditForm));
+
+    assertThat(cleaned(contactView.getFirstname()), equalTo(mergedDetails(contactInfoEditForm)));
+
   }
 
 }

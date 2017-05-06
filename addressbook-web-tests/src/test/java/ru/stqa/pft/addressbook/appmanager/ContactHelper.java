@@ -172,7 +172,7 @@ public class ContactHelper extends HelperBase {
             .withEmai1(email).withEmail2(email2).withEmail3(email3);
   }
 
-  public ContactData infoContactDetails(ContactData contact) {
+  public ContactData infoContactDetailsSplit(ContactData contact) {
     initViewContactDetailsById(contact.getId());
     String[] details = wd.findElement(By.xpath("//div[@id='content']")).getText().split("\n");
     String[] names = details[0].split("\\s");
@@ -181,6 +181,13 @@ public class ContactHelper extends HelperBase {
             .withAddress(details[1])
             .withHomephone(details[3]).withMobilephone(details[4]).withWorkphone(details[5])
             .withEmai1(details[7]).withEmail2(details[8]).withEmail3(details[9]);
+  }
+
+  public ContactData infoContactDetailsMerge(ContactData contact) {
+    initViewContactDetailsById(contact.getId());
+    String details = wd.findElement(By.xpath("//div[@id='content']")).getText();
+    wd.navigate().back();
+    return new ContactData().withId(contact.getId()).withFirstname(details);
   }
 
   public Contacts all() {
@@ -203,6 +210,7 @@ public class ContactHelper extends HelperBase {
     }
     return new Contacts(contactCache);
   }
+
 
 
 }
