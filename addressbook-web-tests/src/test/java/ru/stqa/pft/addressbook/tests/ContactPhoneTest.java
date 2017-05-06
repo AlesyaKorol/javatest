@@ -27,7 +27,6 @@ public class ContactPhoneTest extends TestBase {
 
   @Test
   public void testContactPhone() {
-    app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoEditForm = app.contact().infoContactEditForm(contact);
 
