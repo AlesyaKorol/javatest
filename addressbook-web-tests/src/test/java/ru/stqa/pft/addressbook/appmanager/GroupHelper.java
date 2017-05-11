@@ -28,7 +28,7 @@ public class GroupHelper extends HelperBase {
   }
 
   public void fillGroupForm(GroupDate groupDate) {
-    type(By.name("group_name"), groupDate.getGroupname());
+    type(By.name("group_name"), groupDate.getName());
     type(By.name("group_header"), groupDate.getHeader());
     type(By.name("group_footer"), groupDate.getFooter());
   }
@@ -101,7 +101,7 @@ public class GroupHelper extends HelperBase {
     for (WebElement element : elements) {
       String groupname = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      groups.add(new GroupDate().withId(id).withGroupname(groupname));
+      groups.add(new GroupDate().withId(id).withName(groupname));
     }
     return groups;
   }
@@ -119,7 +119,7 @@ public class GroupHelper extends HelperBase {
     for (WebElement element : elements) {
       String groupname = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      groupCache.add(new GroupDate().withId(id).withGroupname(groupname));
+      groupCache.add(new GroupDate().withId(id).withName(groupname));
     }
     return new Groups(groupCache);
   }

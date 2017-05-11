@@ -204,7 +204,6 @@ public class ContactHelper extends HelperBase {
       String allPhones = element.findElement(By.xpath("td[6]")).getText();
       String address = element.findElement(By.xpath("td[4]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      System.out.println("id " + id + " fn: " + firstname + " ln: " + lastname + " qty " + elements.size());
       contactCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
               .withAddress(address)
               .withAllPhones(allPhones).withAllEmails(allEmails));

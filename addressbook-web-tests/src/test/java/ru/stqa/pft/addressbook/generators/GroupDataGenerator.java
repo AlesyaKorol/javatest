@@ -44,7 +44,7 @@ public class GroupDataGenerator {
     System.out.println(new File(".").getAbsolutePath());
     Writer writer = new FileWriter(file);
     for (GroupDate group : groups) {
-      writer.write(String.format("%s; %s; %s\n", group.getGroupname(), group.getHeader(), group.getFooter()));
+      writer.write(String.format("%s; %s; %s\n", group.getName(), group.getHeader(), group.getFooter()));
     }
     writer.close();
   }
@@ -52,7 +52,7 @@ public class GroupDataGenerator {
   private List<GroupDate> generateGroups(int count) {
     List<GroupDate> groups = new ArrayList<GroupDate>();
     for (int i = 0; i < count; i++) {
-      groups.add(new GroupDate().withGroupname(String.format("test %s", i))
+      groups.add(new GroupDate().withName(String.format("test %s", i))
               .withHeader(String.format("header %s", i))
               .withFooter(String.format("footer %s", i)));
     }
