@@ -1,5 +1,8 @@
 package ru.stqa.pft.addressbook.generators;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import ru.stqa.pft.addressbook.model.GroupDate;
 
 import java.io.File;
@@ -14,27 +17,41 @@ import java.util.List;
  */
 public class GroupDataGenerator {
 
-  public static void main (String [] args) throws IOException {
+  @Parameter(names = "-c", description = "names count")
+  public int count;
 
-   int count = Integer.parseInt(args[0]);
-   File file = new File(args[1]);
+  @Parameter(names = "-f", description = "Target file")
+  public String file;
 
-    List<GroupDate> groups = generateGroups(count);
-    save (groups, file);
+  public static void main(String[] args) throws IOException {
+    GroupDataGenerator generator = new GroupDataGenerator();
+    JCommander jCommander = new JCommander(generator);
+    try {
+      jCommander.parse(args);
+    } catch (ParameterException ex) {
+      jCommander.usage();
+      return;
+    }
+    generator.run();
   }
 
-  private static void save(List<GroupDate> groups, File file) throws IOException {
+  private void run() throws IOException {
+    List<GroupDate> groups = generateGroups(count);
+    save(groups, new File(file));
+  }
+
+  private void save(List<GroupDate> groups, File file) throws IOException {
     System.out.println(new File(".").getAbsolutePath());
     Writer writer = new FileWriter(file);
-    for (GroupDate group: groups){
+    for (GroupDate group : groups) {
       writer.write(String.format("%s; %s; %s\n", group.getGroupname(), group.getHeader(), group.getFooter()));
     }
     writer.close();
   }
 
-  private static List<GroupDate> generateGroups(int count) {
+  private List<GroupDate> generateGroups(int count) {
     List<GroupDate> groups = new ArrayList<GroupDate>();
-    for (int i = 0; i < count; i++){
+    for (int i = 0; i < count; i++) {
       groups.add(new GroupDate().withGroupname(String.format("test %s", i))
               .withHeader(String.format("header %s", i))
               .withFooter(String.format("footer %s", i)));
