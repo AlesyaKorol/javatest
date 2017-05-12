@@ -33,7 +33,7 @@ public class ContactCreationTest extends TestBase {
     return list.iterator();
   }
 
-
+  @Test (dataProvider = "validContacts")
   public void testContactCreation(ContactData contact) {
     app.goTo().homePage();
     Contacts before = app.contact().all();
@@ -53,8 +53,7 @@ public class ContactCreationTest extends TestBase {
     File photo = new File("src/test/resources/photo1.jpg");
     ContactData contact = new ContactData()
             .withFirstname("Kate").withLastname("Test").withPhoto(photo).withAddress("Tests").withHomephone("111")
-            .withMobilephone("222").withWorkphone("333").withEmai1("anna@gmail.com")
-            .withGroup("[none]");
+            .withMobilephone("222").withWorkphone("333").withEmai1("anna@gmail.com") .withGroup("[none]");
     app.contact().create(contact, true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
