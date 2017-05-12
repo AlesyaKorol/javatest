@@ -43,11 +43,11 @@ public class ContactDataGenerator {
 
   private void run() throws IOException {
     List<ContactData> contacts = generateContacts(count);
-    if (format.equals("csv")){
+    if (format.equals("csv")) {
       saveAsCsv(contacts, new File(file));
     } else if (format.equals("xml")) {
       saveAsXml(contacts, new File(file));
-    }else if (format.equals("json")){
+    } else if (format.equals("json")) {
       saveAsJson(contacts, new File(file));
     }
     System.out.println("Unrecognized format " + format);
@@ -56,20 +56,19 @@ public class ContactDataGenerator {
 
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-   String json = gson.toJson(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
-
+    String json = gson.toJson(contacts);
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(json);
+    }
   }
 
   private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(xml);
+    }
   }
 
   private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
