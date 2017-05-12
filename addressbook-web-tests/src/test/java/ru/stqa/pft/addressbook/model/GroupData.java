@@ -5,7 +5,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 @XStreamAlias("group")
-public class GroupDate {
+public class GroupData {
   @XStreamOmitField
   private int id = Integer.MAX_VALUE;
   @Expose
@@ -31,22 +31,22 @@ public class GroupDate {
     return footer;
   }
 
-  public GroupDate withId(int id) {
+  public GroupData withId(int id) {
     this.id = id;
     return this;
   }
 
-  public GroupDate withName(String groupname) {
+  public GroupData withName(String groupname) {
     this.groupname = groupname;
     return this;
   }
 
-  public GroupDate withHeader(String header) {
+  public GroupData withHeader(String header) {
     this.header = header;
     return this;
   }
 
-  public GroupDate withFooter(String footer) {
+  public GroupData withFooter(String footer) {
     this.footer = footer;
     return this;
   }
@@ -56,10 +56,10 @@ public class GroupDate {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
-    GroupDate groupDate = (GroupDate) o;
+    GroupData groupData = (GroupData) o;
 
-    if (id != groupDate.id) return false;
-    return groupname != null ? groupname.equals(groupDate.groupname) : groupDate.groupname == null;
+    if (id != groupData.id) return false;
+    return groupname != null ? groupname.equals(groupData.groupname) : groupData.groupname == null;
   }
 
   @Override
@@ -71,7 +71,7 @@ public class GroupDate {
 
   @Override
   public String toString() {
-    return "GroupDate{" +
+    return "GroupData{" +
             "id='" + id + '\'' +
             ", groupname='" + groupname + '\'' +
             '}';
