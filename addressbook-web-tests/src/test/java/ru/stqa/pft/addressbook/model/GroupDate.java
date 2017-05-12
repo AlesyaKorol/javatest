@@ -1,10 +1,15 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+@XStreamAlias("group")
 public class GroupDate {
+  @XStreamOmitField
   private int id = Integer.MAX_VALUE;
   private String groupname;
-  private  String header;
-  private  String footer;
+  private String header;
+  private String footer;
 
   public int getId() {
     return id;
@@ -59,6 +64,7 @@ public class GroupDate {
     result = 31 * result + (groupname != null ? groupname.hashCode() : 0);
     return result;
   }
+
   @Override
   public String toString() {
     return "GroupDate{" +
