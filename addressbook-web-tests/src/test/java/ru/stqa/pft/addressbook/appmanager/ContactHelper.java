@@ -25,22 +25,70 @@ public class ContactHelper extends HelperBase {
   }
 
   public void fillContactForm(ContactData contactData, boolean creation) {
-    type(By.name("firstname"), contactData.getFirstname());
-    type(By.name("lastname"), contactData.getLastname());
+    if (contactData.getFirstname() == null){
+      contactData.withFirstname(wd.findElement(By.name("firstname")).getAttribute("value"));
+    }
+    else {type(By.name("firstname"), contactData.getFirstname());
+    }
+
+    if (contactData.getLastname() == null){
+      contactData.withLastname(wd.findElement(By.name("lastname")).getAttribute("value"));
+    }
+    else {type(By.name("lastname"), contactData.getLastname());
+    }
+
     attach(By.name ("photo"), contactData.getPhoto());
-    type(By.name("address"), contactData.getAddress());
-    type(By.name("home"), contactData.getHomephone());
-    type(By.name("mobile"), contactData.getMobilephone());
-    type(By.name("work"), contactData.getWorkphone());
-    type(By.name("email"), contactData.getEmail());
-    type(By.name("email2"), contactData.getEmail2());
-    type(By.name("email3"), contactData.getEmail3());
+
+    if (contactData.getAddress()== null){
+      contactData.withAddress(wd.findElement(By.name("address")).getText());
+    }
+    else {type(By.name("address"), contactData.getAddress());
+    }
+
+    if (contactData.getHomephone()== null){
+      contactData.withHomephone(wd.findElement(By.name("home")).getAttribute("value"));
+    }
+    else {type(By.name("home"), contactData.getHomephone());
+    }
+
+    if (contactData.getMobilephone()== null){
+      contactData.withMobilephone(wd.findElement(By.name("mobile")).getAttribute("value"));
+    }
+    else {type(By.name("mobile"), contactData.getMobilephone());
+    }
+
+    if (contactData.getWorkphone()== null){
+      contactData.withWorkphone(wd.findElement(By.name("work")).getAttribute("value"));
+    }
+    else { type(By.name("work"), contactData.getWorkphone());
+    }
+
+    if (contactData.getEmail()== null){
+      contactData.withEmai1(wd.findElement(By.name("email")).getAttribute("value"));
+    }
+    else { type(By.name("email"), contactData.getEmail());
+    }
+
+    if (contactData.getEmail2()== null){
+      contactData.withEmail2(wd.findElement(By.name("email2")).getAttribute("value"));
+    }
+    else { type(By.name("email2"), contactData.getEmail2());
+    }
+
+    if (contactData.getEmail3()== null){
+      contactData.withEmail3(wd.findElement(By.name("email3")).getAttribute("value"));
+    }
+    else { type(By.name("email3"), contactData.getEmail3());
+    }
+
+
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
+
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();

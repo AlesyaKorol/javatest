@@ -18,7 +18,7 @@ public class ContactMainpageTest extends TestBase {
   @BeforeMethod()
   public void ensurePreconditions() {
     app.goTo().homePage();
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0) {
       app.contact().create(new ContactData()
               .withFirstname("Kate").withLastname("Test").withAddress("Tests").withHomephone("111")
               .withMobilephone("222").withWorkphone("333")
@@ -26,7 +26,6 @@ public class ContactMainpageTest extends TestBase {
               .withGroup("[none]"), true);
     }
   }
-
 
   @Test
   public void testContactMainpage() {

@@ -18,7 +18,7 @@ public class ContactDetailsTests extends TestBase {
   @BeforeMethod()
   public void ensurePreconditions() {
     app.goTo().homePage();
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0) {
       app.contact().create(new ContactData().
               withFirstname("Olga02").withLastname("Test").withHomephone("111").withMobilephone("222").withWorkphone("333")
               .withEmai1("anna@gmail.com").withEmail2("test").withEmail3("test2")
@@ -31,7 +31,6 @@ public class ContactDetailsTests extends TestBase {
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactView = app.contact().infoContactDetailsMerge(contact);
     ContactData contactInfoEditForm = app.contact().infoContactEditForm(contact);
-
     assertThat(cleaned(contactView.getFirstname()), equalTo(mergedDetails(contactInfoEditForm)));
   }
 
@@ -64,6 +63,5 @@ public class ContactDetailsTests extends TestBase {
             .map(ContactDetailsTests::cleaned)
             .collect(Collectors.joining(""));
   }
-
 
 }

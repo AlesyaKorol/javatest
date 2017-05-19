@@ -7,7 +7,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -58,11 +57,11 @@ public class ContactCreationTest extends TestBase {
   @Test(dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactData contact) {
     app.goTo().homePage();
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     app.contact().initContactCreation();
     app.contact().create(contact, true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
   }
@@ -70,15 +69,15 @@ public class ContactCreationTest extends TestBase {
   @Test
   public void testContactCreationPhoto() {
     app.goTo().homePage();
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     app.contact().initContactCreation();
     File photo = new File("src/test/resources/photo1.jpg");
     ContactData contact = new ContactData()
             .withFirstname("Kate").withLastname("Test").withPhoto(photo).withAddress("Tests").withHomephone("111")
-            .withMobilephone("222").withWorkphone("333").withEmai1("anna@gmail.com").withGroup("[none]");
+            .withMobilephone("222").withEmai1("anna@gmail.com").withGroup("[none]");
     app.contact().create(contact, true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
   }

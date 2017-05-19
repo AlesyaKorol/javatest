@@ -16,7 +16,7 @@ public class ContactViewTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().homePage();
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0) {
       app.contact().create(new ContactData()
               .withFirstname("Olga02").withLastname("Test").withMobilephone("80295789098")
               .withEmai1("anna@gmail.com").withGroup("[none]"), true);
@@ -26,13 +26,13 @@ public class ContactViewTest extends TestBase {
 
   @Test
   public void testContactView() {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData viewedContact = before.iterator().next();
     app.contact().view(viewedContact);
     app.goTo().homePage();
 
     assertThat(app.contact().count(), equalTo(before.size()));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before));
   }
 
