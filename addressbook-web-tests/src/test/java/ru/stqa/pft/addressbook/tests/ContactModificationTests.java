@@ -29,7 +29,7 @@ public class ContactModificationTests extends TestBase {
     System.out.println("TEST " + before);
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData()
-            .withId(modifiedContact.getId()).withLastname("Test").withHomephone("111").withMobilephone("222").withWorkphone("333")
+            .withId(modifiedContact.getId()).withLastname("Test1").withHomephone("111").withMobilephone("222").withWorkphone("333")
             .withEmai1("anna@gmail.com").withEmail2("test");
 
     app.contact().modify(contact);
@@ -37,6 +37,9 @@ public class ContactModificationTests extends TestBase {
     Contacts after = app.db().contacts();
     System.out.println("TEST1 " + after);
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
-  }
+    verifyContactListInUI();
+    }
+
+
 
 }

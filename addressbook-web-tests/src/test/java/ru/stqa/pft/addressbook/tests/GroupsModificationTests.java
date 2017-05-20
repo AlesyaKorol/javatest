@@ -27,11 +27,15 @@ public class GroupsModificationTests extends TestBase {
   public void testGroupsModification() {
     Groups before = app.db().groups();
     GroupData modifiedGroup = before.iterator().next();
-    GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test100").withHeader("Header").withFooter("Footer");
+    GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test100")
+            .withHeader("Header").withFooter("Footer");
     app.group().modify(group);
     assertThat(app.group().count(), equalTo(before.size()));
     Groups after = app.db().groups();
     assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
+    verifyGroupListInUI();
   }
+
+
 
 }
