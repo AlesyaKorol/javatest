@@ -22,7 +22,6 @@ public class DbHelper {
     final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure() // configures settings from hibernate.cfg.xml
             .build();
-
     sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
   }
 
@@ -33,9 +32,7 @@ public class DbHelper {
     session.getTransaction().commit();
     session.close();
     return new Groups(result);
-
   }
-
 
   public Contacts contacts() {
     Session session = sessionFactory.openSession();
@@ -44,6 +41,18 @@ public class DbHelper {
     session.getTransaction().commit();
     session.close();
     return new Contacts(result);
-
   }
-}
+
+  public Contacts contacts1() {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00' ").list();
+    for (ContactData contact : result) {
+      contact.getGroups();
+    }
+    session.getTransaction().commit();
+    session.close();
+    return new Contacts(result);
+    }
+  }
+

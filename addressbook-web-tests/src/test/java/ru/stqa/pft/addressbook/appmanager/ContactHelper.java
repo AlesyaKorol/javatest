@@ -92,6 +92,9 @@ public class ContactHelper extends HelperBase {
     }
   }
 
+  private void selectGroupInList() {
+    wd.findElement(By.name("to_group"));
+      }
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
@@ -107,7 +110,7 @@ public class ContactHelper extends HelperBase {
 
   private void initContactModificationById(int id) {
     wd.findElement(By.xpath("//a[contains(@href,'edit.php?id=" + id + "')]")).click();
-    //wd.findElement(By.xpath(String.format("a[href='edit.php?id=8s']",id))).click();
+
   }
 
   public void initContactView() {
@@ -124,6 +127,10 @@ public class ContactHelper extends HelperBase {
 
   public void deleteSelectedContact() {
     click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+  }
+
+  private void addToSelectedGroup() {
+    click(By.name("add"));
   }
 
   public void closeAlertWindow() {
@@ -178,6 +185,13 @@ public class ContactHelper extends HelperBase {
     deleteSelectedContact();
     closeAlertWindow();
     contactCache = null;
+  }
+
+
+  public void addToGroup (ContactData contact){
+    selectContactById(contact.getId());
+    selectGroupInList();
+    addToSelectedGroup();
   }
 
   public boolean isThereAContact() {
