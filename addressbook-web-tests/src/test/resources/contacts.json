@@ -8,7 +8,6 @@
     "email": "1email0@test.com",
     "email2": "2email0@test.com",
     "email3": "3email0@test.com",
-    "group": "[none]",
     "address": "address 0"
   },
   {
@@ -20,7 +19,17 @@
     "email": "1email1@test.com",
     "email2": "2email1@test.com",
     "email3": "3email1@test.com",
-    "group": "[none]",
     "address": "address 1"
+  },
+  {
+    "firstname": "firstname 2",
+    "lastname": "lastname 2",
+    "homephone": "111 2",
+    "mobilephone": "222 2",
+    "workphone": "333 2",
+    "email": "1email2@test.com",
+    "email2": "2email2@test.com",
+    "email3": "3email2@test.com",
+    "address": "address 2"
   }
 ]
