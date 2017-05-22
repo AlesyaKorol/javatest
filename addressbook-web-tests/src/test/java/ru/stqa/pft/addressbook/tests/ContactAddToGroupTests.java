@@ -20,6 +20,9 @@ public class ContactAddToGroupTests extends TestBase {
     app.goTo().homePage();
     ContactData addedContact = before.iterator().next();
     ContactData contact = new ContactData().withId(addedContact.getId())
+            .withFirstname(addedContact.getFirstname()).withLastname(addedContact.getLastname()).withHomephone(addedContact.getHomephone())
+            .withMobilephone(addedContact.getMobilephone()).withWorkphone(addedContact.getWorkphone()).withEmai1(addedContact.getEmail())
+            .withEmail2(addedContact.getEmail2()).withEmail3(addedContact.getEmail3()).withAddress(addedContact.getAddress())
             .inGroup(groups.iterator().next());
     app.contact().addToGroup(contact);
     app.goTo().homePage();
