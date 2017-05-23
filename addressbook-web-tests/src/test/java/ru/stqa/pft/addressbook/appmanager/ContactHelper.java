@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,10 +93,17 @@ public class ContactHelper extends HelperBase {
     }
   }
 
-  private void selectGroupInList() {
-    wd.findElement(By.name("to_group"));
+  private void selectGroupInList(ContactData contactData) {
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(contactData.getGroups()
+            .iterator().next().getName());
 
       }
+
+  private void selectGroupInTopList(ContactData contactData) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(contactData.getGroups()
+            .iterator().next().getName());
+  }
+
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
@@ -132,6 +140,10 @@ public class ContactHelper extends HelperBase {
 
   private void addToSelectedGroup() {
     click(By.name("add"));
+  }
+
+  private void deleteFromSelectedGroup() {
+    click(By.name("remove"));
   }
 
   public void closeAlertWindow() {
@@ -188,11 +200,17 @@ public class ContactHelper extends HelperBase {
     contactCache = null;
   }
 
-
   public void addToGroup (ContactData contact){
     selectContactById(contact.getId());
-    selectGroupInList();
+    selectGroupInList(contact);
     addToSelectedGroup();
+  }
+
+  public void deleteFromGroup(ContactData contact) {
+    selectGroupInTopList(contact);
+    selectContactById(contact.getId());
+    deleteFromSelectedGroup();
+
   }
 
   public boolean isThereAContact() {

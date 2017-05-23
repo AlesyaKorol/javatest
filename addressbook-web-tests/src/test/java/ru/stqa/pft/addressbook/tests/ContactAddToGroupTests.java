@@ -27,6 +27,7 @@ public class ContactAddToGroupTests extends TestBase {
       app.contact().create(new ContactData().
               withFirstname("Olga02").withLastname("Test").withAddress("test"), true);
     }
+    app.goTo().homePage();
   }
 
 
@@ -34,23 +35,18 @@ public class ContactAddToGroupTests extends TestBase {
   public void testContactAddToGroup() {
     Groups groups = app.db().groups();
     Contacts before = app.db().contacts();
-
-    app.goTo().homePage();
-    ContactData addedContact = before.iterator().next();
-
-    ContactData contact = new ContactData().withId(addedContact.getId())
-            .withFirstname(addedContact.getFirstname()).withLastname(addedContact.getLastname()).withHomephone(addedContact.getHomephone())
-            .withMobilephone(addedContact.getMobilephone()).withWorkphone(addedContact.getWorkphone()).withEmai1(addedContact.getEmail())
-            .withEmail2(addedContact.getEmail2()).withEmail3(addedContact.getEmail3()).withAddress(addedContact.getAddress())
+    ContactData contactToAdd = before.iterator().next();
+    ContactData contact = new ContactData().withId(contactToAdd.getId())
+            .withFirstname(contactToAdd.getFirstname()).withLastname(contactToAdd.getLastname()).withHomephone(contactToAdd.getHomephone())
+            .withMobilephone(contactToAdd.getMobilephone()).withWorkphone(contactToAdd.getWorkphone()).withEmai1(contactToAdd.getEmail())
+            .withEmail2(contactToAdd.getEmail2()).withEmail3(contactToAdd.getEmail3()).withAddress(contactToAdd.getAddress())
             .inGroup(groups.iterator().next());
+
     app.contact().addToGroup(contact);
     app.goTo().homePage();
     Contacts after = app.db().contacts();
 
-    System.out.println("TEST AFTER " + after);
-    System.out.println("TEST BEFORE " + before.without(addedContact).withAdded(contact));
-
-    assertThat(after, equalTo(before.without(addedContact).withAdded(contact.withGroups(groups))));
+    assertThat(after, equalTo(before.without(contactToAdd).withAdded(contact.withGroups(groups))));
   }
 
 }
