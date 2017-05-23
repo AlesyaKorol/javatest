@@ -37,6 +37,7 @@ public class ContactAddToGroupTests extends TestBase {
 
     app.goTo().homePage();
     ContactData addedContact = before.iterator().next();
+
     ContactData contact = new ContactData().withId(addedContact.getId())
             .withFirstname(addedContact.getFirstname()).withLastname(addedContact.getLastname()).withHomephone(addedContact.getHomephone())
             .withMobilephone(addedContact.getMobilephone()).withWorkphone(addedContact.getWorkphone()).withEmai1(addedContact.getEmail())
@@ -46,7 +47,10 @@ public class ContactAddToGroupTests extends TestBase {
     app.goTo().homePage();
     Contacts after = app.db().contacts();
 
-    assertThat(after, equalTo(before.without(addedContact).withAdded(contact)));
+    System.out.println("TEST AFTER " + after);
+    System.out.println("TEST BEFORE " + before.without(addedContact).withAdded(contact));
+
+    assertThat(after, equalTo(before.without(addedContact).withAdded(contact.withGroups(groups))));
   }
 
 }

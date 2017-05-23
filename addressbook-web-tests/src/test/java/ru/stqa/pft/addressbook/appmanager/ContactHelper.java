@@ -94,6 +94,7 @@ public class ContactHelper extends HelperBase {
 
   private void selectGroupInList() {
     wd.findElement(By.name("to_group"));
+
       }
 
   public void selectContact(int index) {

@@ -167,6 +167,15 @@ public class ContactData {
     return photo;
   }
 
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
+
+  public ContactData withGroups(Set<GroupData> groups) {
+    this.groups = groups;
+    return this;
+  }
+
   public ContactData withId(int id) {
     this.id = id;
     return this;
@@ -182,9 +191,7 @@ public class ContactData {
     return this;
   }
 
-  public Groups getGroups() {
-    return new Groups(groups);
-  }
+
 
   public ContactData withHomephone(String homephone) {
     this.homephone = homephone;
