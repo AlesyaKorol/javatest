@@ -3,8 +3,10 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
+import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +89,25 @@ public class GroupHelper extends HelperBase {
     returToGroupPage();
   }
 
+  public void deleteFromGroup(GroupData group) {
+    selectGroupInTopList(group);
+    selectContact();
+    deleteFromSelectedGroup();
+  }
+
+  private void selectContact() {
+    wd.findElement(By.name("selected[]")).click();
+  }
+
+  private void selectGroupInTopList(GroupData groupData) {
+
+    wd.findElement(By.name("group"));
+  }
+
+  private void deleteFromSelectedGroup() {
+    click(By.name("remove"));
+  }
+
   public boolean isThereAGroup() {
     return isElementPresent(By.name("selected[]"));
   }
@@ -106,8 +127,6 @@ public class GroupHelper extends HelperBase {
     return groups;
   }
 
-
-
   private Groups groupCache = null;
 
   public Groups all() {
@@ -124,5 +143,7 @@ public class GroupHelper extends HelperBase {
     return new Groups(groupCache);
   }
 
-
+  public void removeTopGroup() {
+    wd.findElement(By.cssSelector("option[value='[none]']")).click();
+  }
 }

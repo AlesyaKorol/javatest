@@ -3,7 +3,6 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
@@ -35,20 +34,24 @@ public class ContactDeleteFromGroupTests extends TestBase {
   @Test
   public void testContactDeleteFromGroup (){
     Groups groups = app.db().groups();
-    Contacts before = app.db().contacts();
-    ContactData contactToDelete = before.iterator().next();
+    //Contacts before = app.db().contacts();
+    Groups before = app.db().groups();
+    GroupData groupInTopList = before.iterator().next();
 
-    ContactData contact = new ContactData().withId(contactToDelete.getId())
-            .withFirstname(contactToDelete.getFirstname()).withLastname(contactToDelete.getLastname()).withHomephone(contactToDelete.getHomephone())
-            .withMobilephone(contactToDelete.getMobilephone()).withWorkphone(contactToDelete.getWorkphone()).withEmai1(contactToDelete.getEmail())
-            .withEmail2(contactToDelete.getEmail2()).withEmail3(contactToDelete.getEmail3()).withAddress(contactToDelete.getAddress())
-            .inGroup(groups.iterator().next());
+//    ContactData contact = new ContactData().withId(contactToDelete.getId())
+//            .withFirstname(contactToDelete.getFirstname()).withLastname(contactToDelete.getLastname()).withHomephone(contactToDelete.getHomephone())
+//            .withMobilephone(contactToDelete.getMobilephone()).withWorkphone(contactToDelete.getWorkphone()).withEmai1(contactToDelete.getEmail())
+//            .withEmail2(contactToDelete.getEmail2()).withEmail3(contactToDelete.getEmail3()).withAddress(contactToDelete.getAddress())
+//            .inGroup(groups.iterator().next());
 
-    app.contact().deleteFromGroup(contact);
-    app.goTo().homePage();
-    Contacts after = app.db().contacts();
+    GroupData group = new GroupData().withName("213");
 
-    assertThat(after, equalTo(before.without(contact.withGroups(groups)).withAdded(contactToDelete)));
+    app.group().deleteFromGroup(group);
+    app.group().removeTopGroup();
+    //Contacts after = app.db().contacts();
+    Groups after = app.db().groups();
+
+    //assertThat(after, equalTo(before.without(contact.withGroups(groups)).withAdded(contactToDelete)));
   }
 
   }

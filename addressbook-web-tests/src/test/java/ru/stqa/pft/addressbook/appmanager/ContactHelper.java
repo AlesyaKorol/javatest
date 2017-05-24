@@ -99,17 +99,18 @@ public class ContactHelper extends HelperBase {
 
       }
 
-  private void selectGroupInTopList(ContactData contactData) {
-    new Select(wd.findElement(By.name("group"))).selectByVisibleText(contactData.getGroups()
-            .iterator().next().getName());
-  }
+//  private String selectGroupInTopList(ContactData contactData) {
+//    String groupName = contactData.getGroups().iterator().next().getName();
+//    new Select(wd.findElement(By.name("group"))).selectByVisibleText(groupName);
+//    return groupName;
+//  }
 
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  private void selectContactById(int id) {
+  public void selectContactById(int id) {
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
@@ -142,9 +143,9 @@ public class ContactHelper extends HelperBase {
     click(By.name("add"));
   }
 
-  private void deleteFromSelectedGroup() {
-    click(By.name("remove"));
-  }
+//  private void deleteFromSelectedGroup() {
+//    click(By.name("remove"));
+//  }
 
   public void closeAlertWindow() {
     wd.switchTo().alert().accept();
@@ -206,12 +207,12 @@ public class ContactHelper extends HelperBase {
     addToSelectedGroup();
   }
 
-  public void deleteFromGroup(ContactData contact) {
-    selectGroupInTopList(contact);
-    selectContactById(contact.getId());
-    deleteFromSelectedGroup();
-
-  }
+//  public void deleteFromGroup(ContactData contact) {
+//    selectGroupInTopList(contact);
+//    selectContactById(contact.getId());
+//    deleteFromSelectedGroup();
+//
+//  }
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
