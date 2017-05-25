@@ -26,67 +26,67 @@ public class ContactHelper extends HelperBase {
   }
 
   public void fillContactForm(ContactData contactData, boolean creation) {
-    if (contactData.getFirstname() == null){
+    if (contactData.getFirstname() == null) {
       contactData.withFirstname(wd.findElement(By.name("firstname")).getAttribute("value"));
-    }
-    else {type(By.name("firstname"), contactData.getFirstname());
+    } else {
+      type(By.name("firstname"), contactData.getFirstname());
     }
 
-    if (contactData.getLastname() == null){
+    if (contactData.getLastname() == null) {
       contactData.withLastname(wd.findElement(By.name("lastname")).getAttribute("value"));
-    }
-    else {type(By.name("lastname"), contactData.getLastname());
+    } else {
+      type(By.name("lastname"), contactData.getLastname());
     }
 
-    attach(By.name ("photo"), contactData.getPhoto());
+    attach(By.name("photo"), contactData.getPhoto());
 
-    if (contactData.getAddress()== null){
+    if (contactData.getAddress() == null) {
       contactData.withAddress(wd.findElement(By.name("address")).getText());
-    }
-    else {type(By.name("address"), contactData.getAddress());
+    } else {
+      type(By.name("address"), contactData.getAddress());
     }
 
-    if (contactData.getHomephone()== null){
+    if (contactData.getHomephone() == null) {
       contactData.withHomephone(wd.findElement(By.name("home")).getAttribute("value"));
-    }
-    else {type(By.name("home"), contactData.getHomephone());
+    } else {
+      type(By.name("home"), contactData.getHomephone());
     }
 
-    if (contactData.getMobilephone()== null){
+    if (contactData.getMobilephone() == null) {
       contactData.withMobilephone(wd.findElement(By.name("mobile")).getAttribute("value"));
-    }
-    else {type(By.name("mobile"), contactData.getMobilephone());
+    } else {
+      type(By.name("mobile"), contactData.getMobilephone());
     }
 
-    if (contactData.getWorkphone()== null){
+    if (contactData.getWorkphone() == null) {
       contactData.withWorkphone(wd.findElement(By.name("work")).getAttribute("value"));
-    }
-    else { type(By.name("work"), contactData.getWorkphone());
+    } else {
+      type(By.name("work"), contactData.getWorkphone());
     }
 
-    if (contactData.getEmail()== null){
+    if (contactData.getEmail() == null) {
       contactData.withEmai1(wd.findElement(By.name("email")).getAttribute("value"));
-    }
-    else { type(By.name("email"), contactData.getEmail());
+    } else {
+      type(By.name("email"), contactData.getEmail());
     }
 
-    if (contactData.getEmail2()== null){
+    if (contactData.getEmail2() == null) {
       contactData.withEmail2(wd.findElement(By.name("email2")).getAttribute("value"));
-    }
-    else { type(By.name("email2"), contactData.getEmail2());
+    } else {
+      type(By.name("email2"), contactData.getEmail2());
     }
 
-    if (contactData.getEmail3()== null){
+    if (contactData.getEmail3() == null) {
       contactData.withEmail3(wd.findElement(By.name("email3")).getAttribute("value"));
-    }
-    else { type(By.name("email3"), contactData.getEmail3());
+    } else {
+      type(By.name("email3"), contactData.getEmail3());
     }
 
     if (creation) {
       if (contactData.getGroups().size() > 0) {
-        Assert.assertTrue(contactData.getGroups().size()==1);
+        Assert.assertTrue(contactData.getGroups().size() == 1);
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups()
-        .iterator().next().getName());
+                .iterator().next().getName());
       }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -97,14 +97,7 @@ public class ContactHelper extends HelperBase {
     new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(contactData.getGroups()
             .iterator().next().getName());
 
-      }
-
-//  private String selectGroupInTopList(ContactData contactData) {
-//    String groupName = contactData.getGroups().iterator().next().getName();
-//    new Select(wd.findElement(By.name("group"))).selectByVisibleText(groupName);
-//    return groupName;
-//  }
-
+  }
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
@@ -142,10 +135,6 @@ public class ContactHelper extends HelperBase {
   private void addToSelectedGroup() {
     click(By.name("add"));
   }
-
-//  private void deleteFromSelectedGroup() {
-//    click(By.name("remove"));
-//  }
 
   public void closeAlertWindow() {
     wd.switchTo().alert().accept();
@@ -201,18 +190,11 @@ public class ContactHelper extends HelperBase {
     contactCache = null;
   }
 
-  public void addToGroup (ContactData contact){
+  public void addToGroup(ContactData contact) {
     selectContactById(contact.getId());
     selectGroupInList(contact);
     addToSelectedGroup();
   }
-
-//  public void deleteFromGroup(ContactData contact) {
-//    selectGroupInTopList(contact);
-//    selectContactById(contact.getId());
-//    deleteFromSelectedGroup();
-//
-//  }
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
@@ -293,7 +275,5 @@ public class ContactHelper extends HelperBase {
     }
     return new Contacts(contactCache);
   }
-
-
 
 }
