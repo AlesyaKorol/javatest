@@ -6,7 +6,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -33,22 +32,15 @@ public class ContactDeleteFromGroupTests extends TestBase {
 
   @Test
   public void testContactDeleteFromGroup (){
-    Groups groups = app.db().groups();
-    //Contacts before = app.db().contacts();
     Groups before = app.db().groups();
-    GroupData groupInTopList = before.iterator().next();
+  GroupData groupInTopList = before.iterator().next();
 
-//    ContactData contact = new ContactData().withId(contactToDelete.getId())
-//            .withFirstname(contactToDelete.getFirstname()).withLastname(contactToDelete.getLastname()).withHomephone(contactToDelete.getHomephone())
-//            .withMobilephone(contactToDelete.getMobilephone()).withWorkphone(contactToDelete.getWorkphone()).withEmai1(contactToDelete.getEmail())
-//            .withEmail2(contactToDelete.getEmail2()).withEmail3(contactToDelete.getEmail3()).withAddress(contactToDelete.getAddress())
-//            .inGroup(groups.iterator().next());
-
-    GroupData group = new GroupData().withName("213");
+    GroupData group = new GroupData().withName("test1");
 
     app.group().deleteFromGroup(group);
-    app.group().removeTopGroup();
-    //Contacts after = app.db().contacts();
+    app.goTo().groupPage();
+   // app.group().removeTopGroupSelection();
+
     Groups after = app.db().groups();
 
     //assertThat(after, equalTo(before.without(contact.withGroups(groups)).withAdded(contactToDelete)));

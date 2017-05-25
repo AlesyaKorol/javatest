@@ -100,8 +100,8 @@ public class GroupHelper extends HelperBase {
   }
 
   private void selectGroupInTopList(GroupData groupData) {
-
-    wd.findElement(By.name("group"));
+    Select dropdown = new Select(wd.findElement(By.name("group")));
+    dropdown.selectByVisibleText(groupData.getName());
   }
 
   private void deleteFromSelectedGroup() {
@@ -143,7 +143,11 @@ public class GroupHelper extends HelperBase {
     return new Groups(groupCache);
   }
 
-  public void removeTopGroup() {
-    wd.findElement(By.cssSelector("option[value='[none]']")).click();
-  }
+//  public void removeTopGroupSelection() {
+//
+//    Select dropdown = new Select(wd.findElement(By.name("group")));
+//    dropdown.selectByVisibleText("[all]");
+//
+//
+//  }
 }
