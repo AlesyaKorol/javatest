@@ -22,14 +22,6 @@ public class GroupRemoveContactTests extends TestBase {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("GROUP1"));
     }
-
-//    if (app.db().contacts().size() == 0) {
-//      app.goTo().homePage();
-//      app.contact().create(new ContactData().
-//              withFirstname("Anna").withLastname("Ivanova").withAddress("Address")
-//              .inGroup(groups.iterator().next()), true);
-//    }
-
     app.goTo().homePage();
   }
 
@@ -38,7 +30,9 @@ public class GroupRemoveContactTests extends TestBase {
     Contacts contacts = app.db().contacts();
     Groups before = app.db().groups();
     GroupData groupInTopList = before.iterator().next();
-    GroupData group = new GroupData().withName(groupInTopList.getName());
+    GroupData group = new GroupData().withId(groupInTopList.getId())
+            .withName(groupInTopList.getName()).withHeader(groupInTopList.getHeader()).
+            withFooter(groupInTopList.getFooter());
 
     if (groupInTopList.getContacts().size() == 0) {
       app.goTo().homePage();
@@ -46,13 +40,13 @@ public class GroupRemoveContactTests extends TestBase {
               withFirstname("Kate").withLastname("Smirnova").withAddress("Minsk")
               .inGroup(group), true);
     }
-
     app.group().deleteFromGroup(group);
-
-
     Groups after = app.db().groups();
 
-    assertThat(after, equalTo(before.without(groupInTopList).withAdded(group.withContacts(contacts).withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+    assertThat(after, equalTo(before.without(groupInTopList).withAdded(group)));
+
+//    .withContacts(contacts)
+//            .withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))))
   }
 }
 
