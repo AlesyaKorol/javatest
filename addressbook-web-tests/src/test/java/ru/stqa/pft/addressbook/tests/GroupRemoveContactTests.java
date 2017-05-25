@@ -3,9 +3,11 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -18,22 +20,22 @@ public class GroupRemoveContactTests extends TestBase {
     Groups groups = app.db().groups();
     if (app.db().groups().size() == 0) {
       app.goTo().groupPage();
-      app.group().create(new GroupData().withName("test1"));
+      app.group().create(new GroupData().withName("GROUP1"));
     }
 
-    if (app.db().contacts().size() == 0) {
-      app.goTo().homePage();
-      app.contact().create(new ContactData().
-              withFirstname("Olga02").withLastname("Test").withAddress("test")
-              .inGroup(groups.iterator().next()), true);
-    }
+//    if (app.db().contacts().size() == 0) {
+//      app.goTo().homePage();
+//      app.contact().create(new ContactData().
+//              withFirstname("Anna").withLastname("Ivanova").withAddress("Address")
+//              .inGroup(groups.iterator().next()), true);
+//    }
 
     app.goTo().homePage();
   }
 
-
   @Test
   public void testGroupRemoveContact() {
+    Contacts contacts = app.db().contacts();
     Groups before = app.db().groups();
     GroupData groupInTopList = before.iterator().next();
     GroupData group = new GroupData().withName(groupInTopList.getName());
@@ -41,16 +43,18 @@ public class GroupRemoveContactTests extends TestBase {
     if (group.getContacts().size() == 0) {
       app.goTo().homePage();
       app.contact().create(new ContactData().
-              withFirstname("Olga02").withLastname("Test").withAddress("test")
+              withFirstname("Kate").withLastname("Smirnova").withAddress("Minsk")
               .inGroup(group), true);
     }
 
     app.group().deleteFromGroup(group);
+
+
     Groups after = app.db().groups();
+    assertThat(app.group().count(), equalTo(before.size()));
 
-    assertThat(after, equalTo(before));
+    assertThat(after, equalTo(before.without(groupInTopList).withAdded(group)));
   }
-
 }
 
 
