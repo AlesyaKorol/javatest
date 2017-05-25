@@ -52,6 +52,7 @@ public class GroupRemoveContactTests extends TestBase {
 
     Groups after = app.db().groups();
 
+    assertThat(after, equalTo(before.without(groupInTopList).withAdded(group.withContacts(contacts).withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
   }
 }
 
