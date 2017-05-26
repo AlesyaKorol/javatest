@@ -37,9 +37,10 @@ public class ContactAddToGroupTests extends TestBase {
     Contacts before = app.db().contacts();
     ContactData contactToAdd = before.iterator().next();
     ContactData contact = new ContactData().withId(contactToAdd.getId())
-            .withFirstname(contactToAdd.getFirstname()).withLastname(contactToAdd.getLastname()).withHomephone(contactToAdd.getHomephone())
-            .withMobilephone(contactToAdd.getMobilephone()).withWorkphone(contactToAdd.getWorkphone()).withEmai1(contactToAdd.getEmail())
-            .withEmail2(contactToAdd.getEmail2()).withEmail3(contactToAdd.getEmail3()).withAddress(contactToAdd.getAddress())
+            .withFirstname(contactToAdd.getFirstname()).withLastname(contactToAdd.getLastname())
+            .withHomephone(contactToAdd.getHomephone()).withMobilephone(contactToAdd.getMobilephone())
+            .withWorkphone(contactToAdd.getWorkphone()).withEmai1(contactToAdd.getEmail()).withEmail2(contactToAdd.getEmail2())
+            .withEmail3(contactToAdd.getEmail3()).withAddress(contactToAdd.getAddress())
             .inGroup(groups.iterator().next());
 
     app.contact().addToGroup(contact);

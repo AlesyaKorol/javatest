@@ -3,11 +3,9 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -17,7 +15,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupRemoveContactTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
-    Groups groups = app.db().groups();
     if (app.db().groups().size() == 0) {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("GROUP1"));
@@ -27,12 +24,11 @@ public class GroupRemoveContactTests extends TestBase {
 
   @Test
   public void testGroupRemoveContact() {
-    Contacts contacts = app.db().contacts();
     Groups before = app.db().groups();
     GroupData groupInTopList = before.iterator().next();
     GroupData group = new GroupData().withId(groupInTopList.getId())
             .withName(groupInTopList.getName()).withHeader(groupInTopList.getHeader()).
-            withFooter(groupInTopList.getFooter());
+                    withFooter(groupInTopList.getFooter());
 
     if (groupInTopList.getContacts().size() == 0) {
       app.goTo().homePage();
@@ -45,8 +41,6 @@ public class GroupRemoveContactTests extends TestBase {
 
     assertThat(after, equalTo(before.without(groupInTopList).withAdded(group)));
 
-//    .withContacts(contacts)
-//            .withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))))
   }
 }
 
