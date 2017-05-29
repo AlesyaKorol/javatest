@@ -5,12 +5,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.GroupData;
-import ru.stqa.pft.addressbook.model.Groups;
+import ru.stqa.pft.mantis.model.UserData;
+import ru.stqa.pft.mantis.model.Users;
 
 import java.util.List;
+
 
 /**
  * Created by Alesya on 05/19/2017.
@@ -25,30 +24,17 @@ public class DbHelper {
     sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
   }
 
-  public Groups groups() {
+  public Users users() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<GroupData> result = session.createQuery("from GroupData").list();
-    for (GroupData groups : result) {
-      System.out.println("GROUP " + groups);
-      System.out.println("GROUP AND CONTACT 1 " + groups.getContacts());
-    }
-    session.getTransaction().commit();
-    session.close();
-    return new Groups(result);
-  }
+    List<UserData> result = session.createQuery("from UserData").list();
+    for (UserData groups : result) {
+      System.out.println("Users " + users());
 
-  public Contacts contacts() {
-    Session session = sessionFactory.openSession();
-    session.beginTransaction();
-    List<ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00' ").list();
-    for (ContactData contact : result) {
-      System.out.println("CONTACT " + contact);
-      System.out.println("GROUP AND CONTACT 2 " + contact.getGroups());
     }
     session.getTransaction().commit();
     session.close();
-    return new Contacts(result);
+    return new Users (result);
   }
 
 }

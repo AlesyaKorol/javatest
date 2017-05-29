@@ -24,6 +24,7 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mail;
   private ManageHelper manageHelper;
+  private DbHelper dbHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -75,6 +76,10 @@ public class ApplicationManager {
       mail = new MailHelper(this);
     }
     return mail;
+  }
+
+  public DbHelper db(){
+    return dbHelper;
   }
 
   public WebDriver getDriver() {

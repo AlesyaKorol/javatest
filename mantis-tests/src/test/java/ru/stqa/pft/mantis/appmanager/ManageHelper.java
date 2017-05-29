@@ -1,6 +1,7 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
+import ru.stqa.pft.mantis.model.UserData;
 
 /**
  * Created by Alesya on 05/29/2017.
@@ -19,18 +20,18 @@ public class ManageHelper extends HelperBase {
     wd.get(app.getProperty("web.baseUrl") + "/manage_user_page.php");
   }
 
-  public void selectUser (){
-    click(By.xpath("//a[contains(@href,'vimanage_user_edit_page.php?user_id=2')]"));
-  }
+  public void selectUser (int id){
+    click(By.xpath("//a[contains(@href,'vimanage_user_edit_page.php?user_id=" + id + "')]"));
+      }
 
   public void initPasswordChange (){
     click(By.cssSelector("input[value='Reset Password']"));
   }
 
-  public void changePasswordStart() {
+  public void changePasswordStart(UserData user) {
     openManagePage();
     openManageUsers();
-    selectUser();
+    selectUser(user.getId());
     initPasswordChange();
   }
 
