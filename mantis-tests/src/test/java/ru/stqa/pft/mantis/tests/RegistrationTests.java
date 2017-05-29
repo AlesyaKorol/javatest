@@ -10,22 +10,28 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
 
+import static org.testng.AssertJUnit.assertTrue;
+
 /**
  * Created by Alesia on 27.05.17.
  */
 public class RegistrationTests extends TestBase {
   @BeforeMethod
-  public void startMailServer(){
+  public void startMailServer() {
     app.mail().start();
   }
 
   @Test
   public void testRegistration() throws IOException, MessagingException {
-    String email = "user1@localhost.localhostdomain";
-    app.registration().start ("user1", email);
+    long now = System.currentTimeMillis();
+    String user = String.format("user%s", now);
+    String email = String.format("user%s@localhost.localhostdomain", now);
+    String password = "password";
+    app.registration().start(user, email);
     List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
     String confirmationLink = findConfirmationLink(mailMessages, email);
-    app.registration().finish (confirmationLink, "password");
+    app.registration().finish(confirmationLink, password);
+    assertTrue(app.newSession().login(user, password));
 
   }
 
@@ -33,11 +39,11 @@ public class RegistrationTests extends TestBase {
     MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
     VerbalExpression regex = VerbalExpression.regex().find("http://")
             .nonSpace().oneOrMore().build();
-   return regex.getText(mailMessage.text);
+    return regex.getText(mailMessage.text);
   }
 
-  @AfterMethod (alwaysRun = true)
-  public void stopMailServer(){
+  @AfterMethod(alwaysRun = true)
+  public void stopMailServer() {
     app.mail().stop();
   }
 
