@@ -30,11 +30,12 @@ public class PasswordChangeTest extends TestBase {
   public void testPasswordChange() throws IOException, MessagingException {
     long now = System.currentTimeMillis();
     String password = String.format("pass", now);
-    Users before = app.db().users();
-    UserData userToChange = before.iterator().next();
+    Users allUsers = app.db().users();
+    UserData userToChange = allUsers.iterator().next();
     UserData user = new UserData().withId(userToChange.getId()).withUsername(userToChange.getUsername()).withEmail(userToChange.getEmail());
+
     HttpSession session = app.newSession();
-    assertTrue(session.login("administrator", "root"));
+    session.login("administrator", "root");
     app.manage().changePasswordStart(user);
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
     String confirmationLink = app.mail().findConfirmationLink(mailMessages, user.getEmail());
