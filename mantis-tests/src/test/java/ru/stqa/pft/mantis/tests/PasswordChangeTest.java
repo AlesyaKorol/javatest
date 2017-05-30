@@ -28,7 +28,8 @@ public class PasswordChangeTest extends TestBase {
 
   @Test
   public void testPasswordChange() throws IOException, MessagingException {
-    String password = "pass";
+    long now = System.currentTimeMillis();
+    String password = String.format("pass", now);
     Users before = app.db().users();
     UserData userToChange = before.iterator().next();
     UserData user = new UserData().withId(userToChange.getId()).withUsername(userToChange.getUsername()).withEmail(userToChange.getEmail());
