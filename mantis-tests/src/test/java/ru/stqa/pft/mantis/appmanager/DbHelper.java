@@ -28,9 +28,8 @@ public class DbHelper {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     List<UserData> result = session.createQuery("from UserData").list();
-    for (UserData groups : result) {
-      System.out.println("Users " + users());
-
+    for (UserData user : result) {
+      System.out.println("Users " + user);
     }
     session.getTransaction().commit();
     session.close();

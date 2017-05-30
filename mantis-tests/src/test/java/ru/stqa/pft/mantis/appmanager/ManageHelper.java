@@ -21,7 +21,7 @@ public class ManageHelper extends HelperBase {
   }
 
   public void selectUser (int id){
-    click(By.xpath("//a[contains(@href,'vimanage_user_edit_page.php?user_id=" + id + "')]"));
+    click(By.xpath("//a[contains(@href,'manage_user_edit_page.php?user_id=" + id + "')]"));
       }
 
   public void initPasswordChange (){

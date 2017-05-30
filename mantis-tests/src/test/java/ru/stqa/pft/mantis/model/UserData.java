@@ -1,12 +1,14 @@
 package ru.stqa.pft.mantis.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
  * Created by Alesia on 29.05.17.
  */
+@Entity
 @Table(name = "mantis_user_table")
 public class UserData {
 
