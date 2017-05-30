@@ -6,4 +6,4 @@ $g_db_username = 'root';
 $g_db_password = '';
 $g_singup_use_captcha = OFF;
 $g_phpMailer_method = PHPMAILER_METHOD_SMTP;
-$g_smyp_host = 'localhost';
+$g_smtp_host = 'localhost';
