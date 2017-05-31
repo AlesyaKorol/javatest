@@ -16,8 +16,18 @@ import java.util.List;
  */
 public class DbHelper {
   private final SessionFactory sessionFactory;
+  private final ApplicationManager app;
 
-  public DbHelper() {
+
+//  public DbHelper() {
+//    final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+//            .configure() // configures settings from hibernate.cfg.xml
+//            .build();
+//    sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+//  }
+
+  public DbHelper(ApplicationManager app) {
+    this.app = app;
     final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure() // configures settings from hibernate.cfg.xml
             .build();
@@ -33,7 +43,7 @@ public class DbHelper {
     }
     session.getTransaction().commit();
     session.close();
-    return new Users (result);
+    return new Users(result);
   }
 
 }

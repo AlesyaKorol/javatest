@@ -34,7 +34,6 @@ public class ApplicationManager {
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-    dbHelper = new DbHelper();
   }
 
   public void stop() {
@@ -58,7 +57,7 @@ public class ApplicationManager {
     return registrationHelper;
   }
 
-  public ManageHelper manage () {
+  public ManageHelper manage() {
     if (manageHelper == null) {
       manageHelper = new ManageHelper(this);
     }
@@ -79,7 +78,10 @@ public class ApplicationManager {
     return mailHelper;
   }
 
-  public DbHelper db(){
+  public DbHelper db() {
+    if (dbHelper == null) {
+      dbHelper = new DbHelper(this);
+    }
     return dbHelper;
   }
 

@@ -9,23 +9,32 @@ import ru.stqa.pft.mantis.model.UserData;
 public class ManageHelper extends HelperBase {
 
 
-  public ManageHelper  (ApplicationManager app) {
+  public ManageHelper(ApplicationManager app) {
     super(app);
   }
-   public void openManagePage (){
-     wd.get(app.getProperty("web.baseUrl") + "/manage_overview_page.php");
-   }
 
-  public void openManageUsers (){
+  public void openManagePage() {
+    wd.get(app.getProperty("web.baseUrl") + "/manage_overview_page.php");
+  }
+
+  public void openManageUsers() {
     wd.get(app.getProperty("web.baseUrl") + "/manage_user_page.php");
   }
 
-  public void selectUser (int id){
-    click(By.xpath("//a[contains(@href,'manage_user_edit_page.php?user_id=" + id + "')]"));
-      }
+  public void selectUser(int id) {
+    wd.findElement(By.xpath("//a[contains(@href,'manage_user_edit_page.php?user_id=" + id + "')]")).click();
+  }
 
-  public void initPasswordChange (){
+  public void initPasswordChange() {
     click(By.cssSelector("input[value='Reset Password']"));
+  }
+
+
+  public void logInAdmin(String username, String password) {
+    wd.get(app.getProperty("web.baseUrl") + "/login.php");
+    type(By.name("username"), username);
+    type(By.name("password"), password);
+    click(By.cssSelector("input[value='Login']"));
   }
 
   public void changePasswordStart(UserData user) {
@@ -35,10 +44,10 @@ public class ManageHelper extends HelperBase {
     initPasswordChange();
   }
 
-  public void changePasswordFinish (String confirmationLink, String password){
+  public void changePasswordFinish(String confirmationLink, String password) {
     wd.get(confirmationLink);
-    type(By.name("password"),password);
-    type(By.name("password_confirm"),password);
+    type(By.name("password"), password);
+    type(By.name("password_confirm"), password);
     click(By.cssSelector("input[value='Update User']"));
   }
 
