@@ -137,8 +137,13 @@ public class JamesHelper {
     Folder inbox = openInbox(username, password);
     List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m)
             -> toModelMail(m)).collect(Collectors.toList());
-    closeFolder;
+    closeFolder(inbox);
     return messages;
+  }
+
+  private void closeFolder(Folder folder) throws MessagingException {
+    folder.close(true);
+    store.close();
   }
 
   public static MailMessage toModelMail(Message m) {
@@ -154,7 +159,13 @@ public class JamesHelper {
     }
   }
 
-
+private Folder openInbox(String username, String password) throws MessagingException {
+    store = mailSession.getStore("pop3");
+    store.connect(mailserver,username, password);
+    Folder folder = store.getDefaultFolder().getFolder("INBOX");
+    folder.open(Folder.READ_WRITE);
+    return folder;
+}
 
 }
 
