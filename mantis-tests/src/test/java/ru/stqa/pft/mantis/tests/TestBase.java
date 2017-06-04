@@ -5,6 +5,7 @@ import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.mantis.appmanager.ApplicationManager;
+import ru.stqa.pft.mantis.model.Issue;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,18 +32,19 @@ public class TestBase {
   }
 
 
- public boolean isIssueOpen(int issueId) {
+// public boolean isIssueOpen(int issueId) {
+//
+//   Issue issue = new Issue().withId(issueId).withResolution("");
+//
+//    return true;
+// }
 
 
-    return true;
- }
-
-
-  public void skipIfNotFixed(int issueId) {
-    if (isIssueOpen(issueId)) {
-      throw new SkipException("Ignored because of issue " + issueId);
-    }
-  }
+//  public void skipIfNotFixed(int issueId) {
+//    if (isIssueOpen(issueId)) {
+//      throw new SkipException("Ignored because of issue " + issueId);
+//    }
+//  }
 
 }
 

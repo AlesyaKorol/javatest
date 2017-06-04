@@ -25,6 +25,13 @@ public class SoapTests extends TestBase {
     }
   }
 
+  @Test
+  public void testGetIssues() throws MalformedURLException, ServiceException, RemoteException {
+   Issue issues = app.soap().getIssues();
+
+      System.out.println(issues.getStatus());
+
+  }
 
   @Test
   public void testCreateIssue()throws MalformedURLException, ServiceException, RemoteException{
