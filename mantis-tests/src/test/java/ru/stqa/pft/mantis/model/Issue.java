@@ -8,14 +8,14 @@ public class Issue {
   private String summary;
   private String description;
   private Project project;
-  private String status;
+  private String resolution;
 
-  public String getStatus() {
-    return status;
+  public String getResolution() {
+    return resolution;
   }
 
-  public Issue withStatus(String status) {
-    this.status = status;
+  public Issue withResolution(String resolution) {
+    this.resolution = resolution;
     return this;
   }
 
