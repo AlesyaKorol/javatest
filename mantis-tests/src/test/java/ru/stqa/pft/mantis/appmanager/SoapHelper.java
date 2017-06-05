@@ -5,7 +5,6 @@ import ru.stqa.pft.mantis.model.Issue;
 import ru.stqa.pft.mantis.model.Project;
 
 import javax.xml.rpc.ServiceException;
-import java.io.Console;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;

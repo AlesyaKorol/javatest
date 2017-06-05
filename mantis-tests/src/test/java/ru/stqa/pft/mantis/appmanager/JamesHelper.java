@@ -2,19 +2,15 @@ package ru.stqa.pft.mantis.appmanager;
 
 
 import org.apache.commons.net.telnet.TelnetClient;
-import org.subethamail.wiser.WiserMessage;
 import ru.stqa.pft.mantis.model.MailMessage;
 
 import javax.mail.*;
-import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static ru.stqa.pft.mantis.appmanager.MailHelper.toModelMail;
 
 /**
  * Created by Alesya on 06/01/2017.
