@@ -6,6 +6,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.message.BasicNameValuePair;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -20,10 +21,10 @@ public class RestTests {
   @Test
   public void testCreateIssue() throws IOException {
     Set<Issue> oldIssues = getIssues();
-    Issue newIssue = new Issue();
-    int ussueId = createIssue(newIssue);
+    Issue newIssue = new Issue().withSubject("Test issue NEW").withDescription("New test issue");
+    int issueId = createIssue(newIssue);
     Set<Issue> newIssues = getIssues();
-    oldIssues.add(newIssue.withId(ussueId));
+    oldIssues.add(newIssue.withId(issueId));
     assertEquals(newIssues, oldIssues);
   }
 
@@ -44,9 +45,12 @@ public class RestTests {
   }
 
   private int createIssue(Issue newIssue) throws IOException {
-    String json = getExecutor().execute(Request.Post("http://demo.bugify.com/api/issues.json"))
+    String json = getExecutor().execute(Request.Post("http://demo.bugify.com/api/issues.json")
+            .bodyForm(new BasicNameValuePair("subject", newIssue.getSubject()),
+                    new BasicNameValuePair("description", newIssue.getDescription())))
             .returnContent().asString();
-    return 0;
+    JsonElement parsed = new JsonParser().parse(json);
+    return parsed.getAsJsonObject().get("issue_id").getAsInt();
   }
 }
 
