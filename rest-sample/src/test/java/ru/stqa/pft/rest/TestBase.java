@@ -35,23 +35,19 @@ public class TestBase {
 
    JsonElement parsed = new JsonParser().parse(json);
    JsonElement issue = parsed.getAsJsonObject().get("issue");
-   System.out.println("Status: " + issue.g
 
-   if(  issue.getResolution().getName().equals("open")){
+   if(  issue.getStatus().equals("Open")){
      return true;
    }
-   if( ! issue.getResolution().getName().equals("open")){
+   if( ! issue.getStatus().getName().equals("Open")){
      return false;
    }
    return false;
  }
 
-
-
   private Executor getExecutor() {
     return Executor.newInstance().auth("LSGjeU4yP1X493ud1hNniA==", "");
   }
-
 
 
   public void skipIfNotFixed(int issueId) throws IOException {
