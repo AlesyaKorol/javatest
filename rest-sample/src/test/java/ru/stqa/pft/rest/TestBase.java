@@ -28,30 +28,27 @@ import java.rmi.RemoteException;
 public class TestBase {
 
 
- public boolean isIssueOpen(int issueId) throws IOException {
+  public boolean isIssueOpen(int issueId) throws IOException {
 
-   String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issue/issue_id.json"))
-           .returnContent().asString();
+    String json = getExecutor().execute(Request.Get(String.format("http://demo.bugify.com/api/issues/%s.json", issueId)))
+            .returnContent().asString();
 
-   JsonElement parsed = new JsonParser().parse(json);
-   JsonElement issue = parsed.getAsJsonObject().get("issue");
-   System.out.println("Status: " + issue.g
+    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement issue = parsed.getAsJsonObject().get("issues");
 
-   if(  issue.getResolution().getName().equals("open")){
-     return true;
-   }
-   if( ! issue.getResolution().getName().equals("open")){
-     return false;
-   }
-   return false;
- }
-
+    if (issue.get().getName().equals("open")) {
+      return true;
+    }
+    if (!issue.getResolution().getName().equals("open")) {
+      return false;
+    }
+    return false;
+  }
 
 
   private Executor getExecutor() {
     return Executor.newInstance().auth("LSGjeU4yP1X493ud1hNniA==", "");
   }
-
 
 
   public void skipIfNotFixed(int issueId) throws IOException {
