@@ -27,14 +27,15 @@ public class TestBase {
     JsonElement element = issues.get(0);
     String status = element.getAsJsonObject().get("state_name").getAsString();
 
-    if(status.equals("Open")){
+    if(  status.equals("Open")){
       return true;
     }
-    if(!status.equals("Open")){
+    if( ! status.equals("Open")){
       return false;
     }
     return false;
   }
+
 
  public Executor getExecutor() {
     return Executor.newInstance().auth("LSGjeU4yP1X493ud1hNniA==", "");

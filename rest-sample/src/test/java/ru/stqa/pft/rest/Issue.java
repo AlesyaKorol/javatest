@@ -7,14 +7,14 @@ public class Issue {
   private int id;
   private String subject;
   private String description;
-  private String status;
+  private String resolution;
 
-  public String getStatus() {
-    return status;
+  public String getResolution() {
+    return resolution;
   }
 
-  public Issue withStatus(String status) {
-    this.status = status;
+  public Issue withResolution(String resolution) {
+    this.resolution = resolution;
     return this;
   }
 
