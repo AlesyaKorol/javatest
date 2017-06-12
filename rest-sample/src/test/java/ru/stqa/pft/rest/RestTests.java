@@ -17,12 +17,11 @@ import static org.testng.Assert.assertEquals;
 /**
  * Created by Alesya on 06/05/2017.
  */
-public class RestTests extends TestBase {
+public class RestTests {
   @Test
   public void testCreateIssue() throws IOException {
-    skipIfNotFixed(6);
     Set<Issue> oldIssues = getIssues();
-    Issue newIssue = new Issue().withSubject("Test issue 08/06").withDescription("New test issue");
+    Issue newIssue = new Issue().withSubject("Test issue NEW").withDescription("New test issue");
     int issueId = createIssue(newIssue);
     Set<Issue> newIssues = getIssues();
     oldIssues.add(newIssue.withId(issueId));
@@ -38,6 +37,11 @@ public class RestTests extends TestBase {
 
     return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
     }.getType());
+  }
+
+
+  private Executor getExecutor() {
+    return Executor.newInstance().auth("LSGjeU4yP1X493ud1hNniA==", "");
   }
 
   private int createIssue(Issue newIssue) throws IOException {
